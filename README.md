@@ -2,15 +2,15 @@
 
 ## Overview
 
-This project focuses on determining whether a given evidence sentence supports a scientific claim using Natural Language Processing (NLP). The system is designed as a binary classification task, where each claim–evidence pair is classified as either **supported** or **not supported**.
+This project focuses on identifying whether a given evidence sentence supports a scientific claim using Natural Language Processing (NLP). The task is formulated as a binary classification problem, where each claim–evidence pair is classified as either **supported** or **not supported**.
 
 ## Approach
 
-The model is based on **SciBERT**, a transformer-based language model trained on scientific text. The claim and evidence sentences are processed together and passed into the model, which learns to identify semantic relationships between them.
+The system uses **SciBERT**, a transformer-based language model trained on scientific text. The model is fine-tuned to understand the semantic relationship between a claim and its corresponding evidence sentence.
 
-The workflow includes:
+The overall workflow includes:
 
-* Dataset preparation (claim–evidence pairs)
+* Dataset construction
 * Text preprocessing
 * Tokenization using SciBERT tokenizer
 * Model training using sequence classification
@@ -18,28 +18,31 @@ The workflow includes:
 
 ## Dataset
 
-The dataset consists of structured claim–evidence pairs extracted from scientific text sources.
+The dataset consists of structured claim–evidence pairs.
 
-Each entry contains:
+Each record contains:
 
-* **Claim** – statement to be verified
+* **Claim** – the statement to be verified
 * **Evidence** – supporting or non-supporting sentence
 * **Label** –
 
   * `1` → Evidence supports the claim
   * `0` → Evidence does not support the claim
 
-The dataset is divided into:
+### Note
 
-* Training set
-* Development (evaluation) set
+Preprocessed dataset files used for training and evaluation are located in:
+
+```
+results/preprocessing/
+```
 
 ## Model
 
 * Model used: `allenai/scibert_scivocab_uncased`
 * Task: Binary classification (Support / Not Support)
 
-The model is fine-tuned on the dataset to learn relationships between claims and evidence.
+The model is fine-tuned on claim–evidence pairs to learn contextual relationships.
 
 ## Evaluation
 
@@ -50,25 +53,27 @@ The model is evaluated using:
 * Recall
 * F1 Score
 
-Visualization techniques such as:
+Visualizations include:
 
 * Confusion Matrix
 * Precision–Recall Curve
 
-are used to analyze performance.
-
 ## Results
 
-The model achieves approximately **70–75% accuracy**, demonstrating its ability to identify relationships between claims and evidence in scientific text.
+The model achieves approximately **70–75% accuracy**, indicating reasonable performance in identifying claim–evidence relationships in scientific text.
 
 ## Project Structure
 
 ```
 Claim_Evidence_Detection_NLP/
 │
-├── data/        # Sample dataset files
-├── results/     # Output visualizations
-├── src/         # Training and evaluation scripts
+├── results/
+│   ├── preprocessing/        # Preprocessed dataset files
+│   ├── dataset_build/       # Intermediate dataset construction files
+│   └── evaluation/          # Evaluation outputs and graphs
+│
+├── src/                     # Source code (training, preprocessing, evaluation)
+│
 ├── README.md
 └── requirements.txt
 ```
@@ -97,15 +102,16 @@ python src/evaluate_scibert.py
 
 ## Notes
 
+* The repository includes preprocessed data for demonstration purposes.
 * Model weights are not included due to size constraints.
-* The project demonstrates a basic implementation of SciBERT for claim–evidence classification.
+* The project presents a basic implementation of SciBERT for claim–evidence classification.
 
 ## Applications
 
 * Scientific fact verification
 * Research paper analysis
-* Automated evidence detection
-* Information validation systems
+* Evidence detection systems
+* Information validation
 
 ## References
 
